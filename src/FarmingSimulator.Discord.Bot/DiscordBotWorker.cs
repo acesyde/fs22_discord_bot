@@ -2,6 +2,7 @@ using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
 using FarmingSimulator.Discord.Bot.Providers;
+using FarmingSimulator.Discord.Bot.Providers.Models;
 using Microsoft.Extensions.Options;
 
 namespace FarmingSimulator.Discord.Bot;
@@ -44,17 +45,19 @@ public class DiscordBotWorker : IHostedService
 
             try
             {
-                // var players = await _provider.GetPlayersAsync();
-
-                await _discordSocketClient.SetGameAsync("FS22 : 0/0");
-
+                var playersCount = await _provider.GetPlayersAsync();
+                if (playersCount != null)
+                {
+                    await _discordSocketClient.SetGameAsync(
+                        $"FS22 : {playersCount.SlotsUsed}/{playersCount.SlotsAvailable}");
+                }
             }
             catch (Exception e)
             {
                 _logger.LogError(e, "Error while updating information");
             }
-            
-            await Task.Delay(TimeSpan.FromSeconds(5));
+
+            await Task.Delay(TimeSpan.FromSeconds(30));
         }
     }
 

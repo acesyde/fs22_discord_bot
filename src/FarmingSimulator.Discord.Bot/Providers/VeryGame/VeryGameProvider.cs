@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using FarmingSimulator.Discord.Bot.Providers.Models;
 using FarmingSimulator.Discord.Bot.Providers.VeryGame.Models;
 using Microsoft.Extensions.Options;
 using Player = FarmingSimulator.Discord.Bot.Providers.Models.Player;
@@ -19,18 +20,18 @@ public class VeryGameProvider : IProvider
         _httpClientFactory = httpClientFactory;
     }
 
-    public async Task<IReadOnlyList<Player>> GetPlayersAsync()
+    public async Task<GetPlayersCount?> GetPlayersAsync()
     {
         var stream = await GetVeryGameContentAsync();
         if (stream == null)
-            return Array.Empty<Player>();
+            return null;
 
         var server = ParseContent(stream);
 
         if (server == null)
-            return Array.Empty<Player>();
+            return null;
 
-        return server.Slots.Player.Select(p => new Player(p.Name, TimeSpan.FromSeconds(p.Uptime), p.IsAdmin)).ToList();
+        return new GetPlayersCount(server.Slots.Capacity, server.Slots.NumUsed);
     }
 
     private Server? ParseContent(Stream stream)

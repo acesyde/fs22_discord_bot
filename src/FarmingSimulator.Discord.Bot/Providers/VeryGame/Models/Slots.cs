@@ -7,7 +7,7 @@ public class Slots {
     [XmlElement(ElementName="Player")]
     public List<Player> Player { get; set; }
     [XmlAttribute(AttributeName="capacity")]
-    public string Capacity { get; set; }
+    public int Capacity { get; set; }
     [XmlAttribute(AttributeName="numUsed")]
-    public string NumUsed { get; set; }
+    public int NumUsed { get; set; }
 }

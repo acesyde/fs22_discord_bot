@@ -4,5 +4,5 @@ namespace FarmingSimulator.Discord.Bot.Providers;
 
 public interface IProvider
 {
-    public Task<IReadOnlyList<Player>> GetPlayersAsync();
+    public Task<GetPlayersCount?> GetPlayersAsync();
 }
