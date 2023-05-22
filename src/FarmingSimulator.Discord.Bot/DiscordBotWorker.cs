@@ -1,4 +1,5 @@
 using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using FarmingSimulator.Discord.Bot.Providers;
 using Microsoft.Extensions.Options;
@@ -32,10 +33,10 @@ public class DiscordBotWorker : IHostedService
     {
         _logger.LogInformation("Discord bot is ready");
         await _discordSocketClient.SetGameAsync("Farming Simulator 22");
-        await ExecuteAsync();
+        await UpdateBotActivityAsync();
     }
 
-    private async Task ExecuteAsync()
+    private async Task UpdateBotActivityAsync()
     {
         while (true)
         {
