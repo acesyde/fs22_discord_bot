@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-FarmingSimulator.Discord.Bot-d6e71f35-76e6-40ca-aaa0-64e9f3964fd2</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,5 +13,11 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
   </ItemGroup>
 </Project>

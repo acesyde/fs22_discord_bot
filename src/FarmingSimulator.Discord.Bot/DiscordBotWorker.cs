@@ -1,8 +1,6 @@
 using Discord;
-using Discord.Rest;
 using Discord.WebSocket;
 using FarmingSimulator.Discord.Bot.Providers;
-using FarmingSimulator.Discord.Bot.Providers.Models;
 using Microsoft.Extensions.Options;
 
 namespace FarmingSimulator.Discord.Bot;
