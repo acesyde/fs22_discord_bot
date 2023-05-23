@@ -1,4 +1,8 @@
 ﻿FROM mcr.microsoft.com/dotnet/runtime:7.0 AS base
+
+ARG BUILD_VERSION
+ENV BUILD_VERSION ${BUILD_VERSION:-0.0.0}
+
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
