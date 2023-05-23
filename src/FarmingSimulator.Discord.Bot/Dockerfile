@@ -10,7 +10,9 @@ WORKDIR "/src/src/FarmingSimulator.Discord.Bot"
 RUN dotnet build "FarmingSimulator.Discord.Bot.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "FarmingSimulator.Discord.Bot.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_VERSION
+ENV BUILD_VERSION ${BUILD_VERSION:-0.0.0}
+RUN dotnet publish "FarmingSimulator.Discord.Bot.csproj" -c Release -o /app/publish /p:Version=$BUILD_VERSION /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
