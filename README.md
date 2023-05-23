@@ -1,5 +1,7 @@
 # Farming Simulator 22 Discord Bot
 
+[![Build](https://github.com/acesyde/fs22_discord_bot/actions/workflows/build.yaml/badge.svg)](https://github.com/acesyde/fs22_discord_bot/actions/workflows/build.yaml)
+
 ## Create a bot
 
 1) Create : https://discordjs.guide/preparations/setting-up-a-bot-application.html#creating-your-bot
