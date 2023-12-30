@@ -1,24 +1,18 @@
 ﻿using System.Xml.Serialization;
-using FarmingSimulator.Discord.Bot.Providers.Models;
-using FarmingSimulator.Discord.Bot.Providers.VeryGame.Models;
+using FarmingSimulator.Discord.Bot.Domain.Services;
+using FarmingSimulator.Discord.Bot.Models;
+using FarmingSimulator.Discord.Bot.Services.FarmingRestApi.Models;
 using Microsoft.Extensions.Options;
-using Player = FarmingSimulator.Discord.Bot.Providers.Models.Player;
 
-namespace FarmingSimulator.Discord.Bot.Providers.VeryGame;
+namespace FarmingSimulator.Discord.Bot.Services.FarmingRestApi;
 
-public class VeryGameProvider : IProvider
+public class FarmingRestApiPlayerService(
+    IOptions<FarmingRestApiOptions> options,
+    ILogger<FarmingRestApiPlayerService> logger,
+    IHttpClientFactory httpClientFactory)
+    : IPlayerService
 {
-    private readonly ILogger<VeryGameProvider> _logger;
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly VeryGameOptions _options;
-
-    public VeryGameProvider(IOptions<VeryGameOptions> options, ILogger<VeryGameProvider> logger,
-        IHttpClientFactory httpClientFactory)
-    {
-        _options = options.Value;
-        _logger = logger;
-        _httpClientFactory = httpClientFactory;
-    }
+    private readonly FarmingRestApiOptions _options = options.Value;
 
     public async Task<GetPlayersCount?> GetPlayersAsync()
     {
@@ -39,20 +33,20 @@ public class VeryGameProvider : IProvider
         try
         {
             var serializer = new XmlSerializer(typeof(Server));
-            return (Server) serializer.Deserialize(stream);
+            return (Server) serializer.Deserialize(stream)!;
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Unable to parse the VeryGame result");
+            logger.LogError(e, "Unable to parse the VeryGame result");
             return null;
         }
     }
 
     private async Task<Stream?> GetVeryGameContentAsync()
     {
-        _logger.LogDebug("Call VeryGame api");
+        logger.LogDebug("Call VeryGame api");
 
-        var client = _httpClientFactory.CreateClient();
+        var client = httpClientFactory.CreateClient();
         client.Timeout = TimeSpan.FromSeconds(_options.Timeout);
         try
         {
@@ -64,7 +58,7 @@ public class VeryGameProvider : IProvider
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Unable to contact VeryGame Url");
+            logger.LogError(e, "Unable to contact VeryGame Url");
             return null;
         }
     }

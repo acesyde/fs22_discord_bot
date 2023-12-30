@@ -1,7 +1,7 @@
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
-using FarmingSimulator.Discord.Bot.Providers;
+using FarmingSimulator.Discord.Bot.Domain.Services;
 using Microsoft.Extensions.Options;
 
 namespace FarmingSimulator.Discord.Bot;
@@ -10,14 +10,14 @@ public class DiscordBotWorker : IHostedService
 {
     private readonly ILogger<DiscordBotWorker> _logger;
     private readonly DiscordBotOptions _options;
-    private readonly IProvider _provider;
+    private readonly IPlayerService _playerService;
     private readonly DiscordSocketClient _discordSocketClient;
 
-    public DiscordBotWorker(ILogger<DiscordBotWorker> logger, IOptions<DiscordBotOptions> options, IProvider provider)
+    public DiscordBotWorker(ILogger<DiscordBotWorker> logger, IOptions<DiscordBotOptions> options, IPlayerService playerService)
     {
         _logger = logger;
         _options = options.Value;
-        _provider = provider;
+        _playerService = playerService;
         _discordSocketClient = new DiscordSocketClient();
         _discordSocketClient.Ready += DiscordSocketClientOnReady;
     }
@@ -44,7 +44,7 @@ public class DiscordBotWorker : IHostedService
 
             try
             {
-                var playersCount = await _provider.GetPlayersAsync();
+                var playersCount = await _playerService.GetPlayersAsync();
                 if (playersCount != null)
                 {
                     await _discordSocketClient.SetGameAsync(

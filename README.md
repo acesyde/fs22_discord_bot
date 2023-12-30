@@ -9,10 +9,10 @@
 
 ## Environment variables
 
-| Name                | Description              |
-| ------------------- | ------------------------ |
-| DISCORDBOT\_\_TOKEN | Discord bot token        |
-| VERYGAME\_\_URL     | Verygame FS22 server url |
+| Name                | Description       |
+|---------------------|-------------------|
+| DISCORDBOT\_\_TOKEN | Discord bot token |
+| FARMING\_\_URL      | FS22 server url   |
 
 ## Installation
 
