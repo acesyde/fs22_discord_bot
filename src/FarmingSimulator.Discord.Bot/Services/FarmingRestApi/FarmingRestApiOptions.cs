@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FarmingSimulator.Discord.Bot.Providers.VeryGame;
+namespace FarmingSimulator.Discord.Bot.Services.FarmingRestApi;
 
-public class VeryGameOptions
+public class FarmingRestApiOptions
 {
-    public const string SectionName = "verygame";
+    public const string SectionName = "farming";
     
     [Required]
     [Url]

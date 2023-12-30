@@ -1,3 +1,3 @@
-﻿namespace FarmingSimulator.Discord.Bot.Providers.Models;
+﻿namespace FarmingSimulator.Discord.Bot.Models;
 
 public record Player(string Name, TimeSpan Time, bool IsAdmin);
